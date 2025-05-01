@@ -6,47 +6,21 @@ public class program {
     public static void main( String[] args )
     {
         double[][] matrix = {
-                {4, 2, 1},
-                {2, 5, 3},
-                {1, 3, 6}
+                {4, -7, 8},
+                {2, -4, 5},
+                {-3, 11, 1}
         };
-
-        ReflectionMethod method = new ReflectionMethod(cloneMatrix(matrix));
-        double[][] inv = method.findReversedMatrix();
-        printMatrix(inv);
-        System.out.println("______________________________");
-        double[][] product = multiply(matrix, inv);
-        printMatrix(product);
+        double[] b = {-23, -13, 16};
+        printVector(b);
+        JordanElimination solver = new JordanElimination();
+        solver.solve(matrix,b);
+        printVector(b);
     }
 
-    public static double[][] cloneMatrix(double[][] matrix) {
-        int n = matrix.length;
-        double[][] result = new double[n][n];
-        for (int i = 0; i < n; i++) {
-            result[i] = Arrays.copyOf(matrix[i], n);
+    public static void printVector(double[] matrix) {
+        for (double el : matrix) {
+            System.out.printf(el + " ");
         }
-        return result;
-    }
-
-    public static double[][] multiply(double[][] A, double[][] B) {
-        int n = A.length;
-        double[][] result = new double[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
-                    result[i][j] += A[i][k] * B[k][j];
-                }
-            }
-        }
-        return result;
-    }
-
-    public static void printMatrix(double[][] matrix) {
-        for (double[] row : matrix) {
-            for (double val : row) {
-                System.out.printf("%10.4f ", val);
-            }
-            System.out.println();
-        }
+        System.out.println();
     }
 }
